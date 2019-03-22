@@ -6,21 +6,21 @@
 #include <iostream>
 #include <rapidxml_utils.hpp>
 #include <boost/filesystem/path.hpp>
-#include "layout.h"
+#include "layer.h"
 
-struct layout::Impl {
+struct layer::Impl {
     std::vector<std::pair<tile_position, std::string>> _tiles;
 };
 
-layout::layout() : pImpl(std::make_unique<Impl>()) {}
+layer::layer() : pImpl(std::make_unique<Impl>()) {}
 
-layout::layout(const layout& other) : pImpl(std::make_unique<Impl>(*other.pImpl)) {
+layer::layer(const layer& other) : pImpl(std::make_unique<Impl>(*other.pImpl)) {
     pImpl->_tiles = other.pImpl->_tiles;
 }
 
-layout::~layout() {}
+layer::~layer() {}
 
-layout layout::load(const std::string& filename, const std::string& id) {
+layer layer::load(const std::string& filename, const std::string& id) {
     rapidxml::file<> xmlFile(filename.c_str());
     rapidxml::xml_document<> doc;
     try {
@@ -30,7 +30,7 @@ layout layout::load(const std::string& filename, const std::string& id) {
         auto layout_node = root->first_node("layout");
         while(layout_node) {
             if (layout_node->first_attribute("id")->value() == id) {
-                layout ret;
+                layer ret;
                 auto tile_node = layout_node->first_node("tile");
                 while (tile_node) {
                     auto f = [&tile_node](const std::string& attr_id, const std::string& default_value){
@@ -68,10 +68,10 @@ layout layout::load(const std::string& filename, const std::string& id) {
     throw std::runtime_error("Not found"); // TODO:
 }
 
-void layout::add(const std::string& tile, const tile_position& position) {
+void layer::add(const std::string& tile, const tile_position& position) {
     pImpl->_tiles.push_back(std::make_pair(position, tile));
 }
 
-const std::vector<std::pair<tile_position, std::string>>& layout::get() const {
+const std::vector<std::pair<tile_position, std::string>>& layer::get() const {
     return pImpl->_tiles;
 }

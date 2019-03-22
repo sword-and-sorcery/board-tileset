@@ -15,14 +15,14 @@ struct tile_position {
     float y = 0;
 };
 
-class layout {
+class layer {
 
 public:
-    layout();
-    layout(const layout& other);
-    ~layout();
+    layer();
+    layer(const layer& other);
+    ~layer();
 
-    static layout load(const std::string& filename, const std::string& id);
+    static layer load(const std::string& filename, const std::string& id);
 
     void add(const std::string& tile, const tile_position& position);
     const std::vector<std::pair<tile_position, std::string>>& get() const;

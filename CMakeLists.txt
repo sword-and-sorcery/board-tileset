@@ -4,8 +4,8 @@ project(sword_and_sorcery)
 include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(TARGETS)
 
-set(SOURCES src/layout.cpp)
-# set(HEADERS include/layout.h)
+set(SOURCES src/layer.cpp src/board.cpp)
+# set(HEADERS include/layer.h include/board.h)
 
 add_library(board_tileset ${SOURCES})
 set_target_properties(board_tileset PROPERTIES CXX_STANDARD 14)
