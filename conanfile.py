@@ -1,7 +1,7 @@
 from conans import ConanFile, CMake
 
-class Tileset(ConanFile):
-    name = "board_tileset"
+class UIBoardGame(ConanFile):
+    name = "ui-board_game"
     version = "0.0"
 
     settings = "os", "arch", "compiler", "build_type"
@@ -15,18 +15,9 @@ class Tileset(ConanFile):
            "revision": "auto"}
 
     def requirements(self):
-        # TODO: Conan, default_options are not being assigned yet
-        rapidxml_shared = self.options["rapidxml"].shared
-        boost_shared = self.options["boost"].shared
-        
-        public_boost = boost_shared or boost_shared is None
-        public_rapidxml = rapidxml_shared or rapidxml_shared is None
-        
-        self.output.info("Require rapidxml public {}".format(public_boost))
-        self.output.info("Require boost public {}".format(public_rapidxml))
-
-        self.requires("rapidxml/1.13@bincrafters/stable", private=not public_boost)
-        self.requires("boost/1.69.0@conan/stable", private=not public_rapidxml)
+        self.requires("rapidxml/1.13@bincrafters/stable")
+        self.requires("boost/1.69.0@conan/stable")
+        self.requires("core-communications/0.0@sword/sorcery")
 
     def build(self):
         cmake = CMake(self)
@@ -35,4 +26,4 @@ class Tileset(ConanFile):
         cmake.install()
 
     def package_info(self):
-        self.cpp_info.libs = ["board_tileset",]
+        self.cpp_info.libs = ["board_game",]
