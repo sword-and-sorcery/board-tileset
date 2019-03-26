@@ -8,7 +8,7 @@ set(SOURCES src/layer.cpp src/board.cpp src/board_game.cpp)
 # set(HEADERS include/layer.h include/board.h)
 
 add_library(board_game ${SOURCES})
-set_target_properties(board_game PROPERTIES CXX_STANDARD 14)
+set_target_properties(board_game PROPERTIES CXX_STANDARD 17)
 target_link_libraries(board_game PUBLIC CONAN_PKG::core-communications)
 target_link_libraries(board_game PRIVATE CONAN_PKG::rapidxml CONAN_PKG::boost)
 
@@ -25,8 +25,8 @@ install(
 install(
     EXPORT board_game-config
     NAMESPACE board_game::
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/board_game)
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake)
 
 install(
     DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/include/
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/board_game)
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})

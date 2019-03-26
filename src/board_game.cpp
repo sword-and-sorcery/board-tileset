@@ -1,5 +1,5 @@
 
-#include "board_game.h"
+#include "board_game/board_game.h"
 
 #include "communications/communications.h"
 

@@ -2,11 +2,12 @@
 // Created by Javier G. Sogo on 2019-03-12.
 //
 
+#include "board_game/layer.h"
+
 #include <map>
 #include <iostream>
 #include <rapidxml_utils.hpp>
 #include <boost/filesystem/path.hpp>
-#include "layer.h"
 
 struct layer::Impl {
     std::vector<std::pair<tile_position, std::string>> _tiles;
@@ -19,6 +20,11 @@ layer::layer(const layer& other) : pImpl(std::make_unique<Impl>(*other.pImpl)) {
 }
 
 layer::~layer() {}
+
+layer& layer::operator=(const layer& other) {
+    pImpl->_tiles = other.pImpl->_tiles;
+    return *this;
+}
 
 layer layer::load(const std::string& filename, const std::string& id) {
     rapidxml::file<> xmlFile(filename.c_str());

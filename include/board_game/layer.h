@@ -22,6 +22,8 @@ public:
     layer(const layer& other);
     ~layer();
 
+    layer& operator=(const layer&);
+
     static layer load(const std::string& filename, const std::string& id);
 
     void add(const std::string& tile, const tile_position& position);
