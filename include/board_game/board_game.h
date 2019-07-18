@@ -5,7 +5,6 @@
 #include <memory>
 
 #include "draw_interface.h"
-#include "messages/board_status.h"
 
 
 class BoardGame {
@@ -13,13 +12,13 @@ public:
     // Receive XML with all the initial configuration:
     //  - board layers
     //  - broadcast address to listen to
-    BoardGame(const std::string& config); 
+    BoardGame(float width, float height);
     ~BoardGame();
 
-    void draw(DrawInterface&);  // Call draw
+    void subscribe_to(const std::string& connection);
 
-protected:
-    void update_status(const BoardStatus&);  // Receive new status, update
+    void add_layer(const std::string& filename, const std::string& id);
+    void draw(const std::string& tileset, DrawInterface&);  // Call draw
 
 protected:
     struct Impl;

@@ -4,13 +4,13 @@ project(sword_and_sorcery)
 include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(TARGETS)
 
-set(SOURCES src/layer.cpp src/board.cpp src/board_game.cpp)
+set(SOURCES src/layer.cpp src/board_game.cpp)
 # set(HEADERS include/layer.h include/board.h)
 
 add_library(board_game ${SOURCES})
 set_target_properties(board_game PROPERTIES CXX_STANDARD 17)
 target_link_libraries(board_game PUBLIC CONAN_PKG::core-communications)
-target_link_libraries(board_game PRIVATE CONAN_PKG::rapidxml CONAN_PKG::boost)
+target_link_libraries(board_game PRIVATE CONAN_PKG::rapidxml CONAN_PKG::boost CONAN_PKG::ui-tileset-glfw)
 
 target_include_directories(
     board_game PUBLIC

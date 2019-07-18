@@ -4,13 +4,12 @@
 
 #include "board_game/layer.h"
 
-#include <map>
 #include <iostream>
 #include <rapidxml_utils.hpp>
 #include <boost/filesystem/path.hpp>
 
 struct layer::Impl {
-    std::vector<std::pair<tile_position, std::string>> _tiles;
+    std::map<std::string, tile_position> _tiles;
 };
 
 layer::layer() : pImpl(std::make_unique<Impl>()) {}
@@ -75,9 +74,16 @@ layer layer::load(const std::string& filename, const std::string& id) {
 }
 
 void layer::add(const std::string& tile, const tile_position& position) {
-    pImpl->_tiles.push_back(std::make_pair(position, tile));
+    pImpl->_tiles.try_emplace(tile, position);
 }
 
-const std::vector<std::pair<tile_position, std::string>>& layer::get() const {
+void layer::move(const std::string& tile, const tile_position& position) {
+    auto it = pImpl->_tiles.find(tile);
+    if (it != pImpl->_tiles.end()) {
+        it->second = position;
+    }
+}
+
+const std::map<std::string, tile_position>& layer::get() const {
     return pImpl->_tiles;
 }
