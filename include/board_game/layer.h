@@ -4,7 +4,7 @@
 
 #include <string>
 #include <vector>
-
+#include <memory>
 
 enum class board_geom { SQUARE, HEXAGON};
 
