@@ -9,7 +9,7 @@
 #include <boost/filesystem/path.hpp>
 
 struct layer::Impl {
-    std::map<std::string, tile_position> _tiles;
+    std::vector<std::pair<std::string, tile_position>> _tiles;
 };
 
 layer::layer() : pImpl(std::make_unique<Impl>()) {}
@@ -74,16 +74,16 @@ layer layer::load(const std::string& filename, const std::string& id) {
 }
 
 void layer::add(const std::string& tile, const tile_position& position) {
-    pImpl->_tiles.try_emplace(tile, position);
+    pImpl->_tiles.emplace_back(tile, position);
 }
 
 void layer::move(const std::string& tile, const tile_position& position) {
-    auto it = pImpl->_tiles.find(tile);
-    if (it != pImpl->_tiles.end()) {
-        it->second = position;
-    }
+    //auto it = pImpl->_tiles.find(tile);
+    //if (it != pImpl->_tiles.end()) {
+    //    it->second = position;
+    //}
 }
 
-const std::map<std::string, tile_position>& layer::get() const {
+const std::vector<std::pair<std::string, tile_position>>& layer::get() const {
     return pImpl->_tiles;
 }

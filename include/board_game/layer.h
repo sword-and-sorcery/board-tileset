@@ -28,7 +28,7 @@ public:
 
     void add(const std::string& tile, const tile_position& position);
     void move(const std::string& tile, const tile_position& position);
-    const std::map<std::string, tile_position>& get() const;
+    const std::vector<std::pair<std::string, tile_position>>& get() const;
 protected:
     struct Impl;
     std::unique_ptr<Impl> pImpl;
