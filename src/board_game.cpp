@@ -6,21 +6,28 @@
 #include "tileset_glfw/textures.h"
 
 struct BoardGame::Impl {
-    float width, height;
-    std::map<std::string, layer> _layers;
+    //float width, height;
+    //std::map<std::string, layer> _layers;
 
-    std::function<void (const sword_and_sorcery::BoardStatus&)> _update_callback;
+    //std::function<void (const sword_and_sorcery::BoardStatus&)> _update_callback;
+//};
+
+//BoardGame::BoardGame(float width, float height) : pImpl(std::make_unique<Impl>()) {
+//    pImpl->width = width;
+//    pImpl->height = height;
+//=======
+    Impl(board& b) : board(b) {}
+    board& board;
 };
 
-BoardGame::BoardGame(float width, float height) : pImpl(std::make_unique<Impl>()) {
-    pImpl->width = width;
-    pImpl->height = height;
+BoardGame::BoardGame(const std::string& config, board& board) : pImpl(std::make_unique<Impl>(board)) {
 }
 
 BoardGame::~BoardGame() {
 
 }
 
+/*
 void BoardGame::subscribe_to(const std::string& connection) {
     pImpl->_update_callback = [this](const sword_and_sorcery::BoardStatus& status) {
         for (auto& layer: status.layers()) {
@@ -36,6 +43,7 @@ void BoardGame::subscribe_to(const std::string& connection) {
     subscribe(address, pImpl->_update_callback);
 }
 
+
 void BoardGame::add_layer(const std::string& filename, const std::string& id) {
     auto [_, inserted] = pImpl->_layers.try_emplace(id, layer::load(filename, id));
 }
@@ -46,8 +54,17 @@ void BoardGame::draw(const std::string& tileset_id, DrawInterface&) {
             // TODO: I cannot do this each time!!
             int width, height;
             auto texture = opengl::get_texture(tileset_id, tile_id, width, height);
+=======
+ */
 
-            
+void BoardGame::draw(std::function<void (const std::string& tileset, const std::string& tile, const tile_position& position)>& draw) {
+    for (auto& [_, layer_pair]: pImpl->board.get_layers()) {
+        auto& [tileset, layer] = layer_pair;
+        for (auto& [tile_id, tile_position]: layer.get()) {
+            draw(tileset, tile_id, tile_position);
         }
     }
+}
+
+void BoardGame::update_status(const sword_and_sorcery::BoardStatus&) {
 }
