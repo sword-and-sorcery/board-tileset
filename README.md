@@ -1,5 +1,6 @@
 # board_game
-Stores the elements and positions of a game, it will connect to a game engine and update positions, broadcast changes and handle the communications between applications.
+Stores the elements and positions of a game, it will connect to a game engine and
+update positions, broadcast changes and handle the communications between applications.
 
 ```
 conan create . sword/sorcery
