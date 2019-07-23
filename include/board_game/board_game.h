@@ -4,22 +4,27 @@
 #include <string>
 #include <memory>
 
-#include "draw_interface.h"
-#include "messages/board_status.h"
-
+#include "messages/board_status.pb.h"
+#include "board.h"
 
 class BoardGame {
 public:
     // Receive XML with all the initial configuration:
     //  - board layers
     //  - broadcast address to listen to
-    BoardGame(const std::string& config); 
+
+    //BoardGame(float width, float height);
+    //void subscribe_to(const std::string& connection);
+
+    void add_layer(const std::string& filename, const std::string& id);
+
+    BoardGame(const std::string& config, board&);
     ~BoardGame();
 
-    void draw(DrawInterface&);  // Call draw
+    void draw(std::function<void (const std::string& tileset, const std::string& tile, const tile_position& position)>& draw);  // Call draw
 
 protected:
-    void update_status(const BoardStatus&);  // Receive new status, update
+    void update_status(const sword_and_sorcery::BoardStatus&);  // Receive new status, update
 
 protected:
     struct Impl;
