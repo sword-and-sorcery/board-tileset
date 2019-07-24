@@ -1,4 +1,7 @@
 # board_game
+
+> ⚠️ **Full docs**: https://sword-and-sorcery.github.io/sword-and-sorcery/
+
 Stores the elements and positions of a game, it will connect to a game engine and
 update positions, broadcast changes and handle the communications between applications.
 
