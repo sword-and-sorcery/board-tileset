@@ -6,7 +6,6 @@ node {
     docker.image(docker_image).inside('-v /tmp:/tmp --net=docker_jenkins_artifactory') {
         def server = Artifactory.server artifactory_name
         def client = Artifactory.newConanClient()
-        def a = client.run("search")
         def remoteName = client.remote.add server: server, repo: artifactory_repo
 
         stage("Get project") {
