@@ -16,11 +16,11 @@ struct BoardGame::Impl {
 //    pImpl->width = width;
 //    pImpl->height = height;
 //=======
-    Impl(board& b) : board(b) {}
-    board& board;
+    Impl(board& b) : board_(b) {}
+    board& board_;
 };
 
-BoardGame::BoardGame(const std::string& config, board& board) : pImpl(std::make_unique<Impl>(board)) {
+BoardGame::BoardGame(const std::string& config, board& board_) : pImpl(std::make_unique<Impl>(board_)) {
 }
 
 BoardGame::~BoardGame() {
@@ -58,7 +58,7 @@ void BoardGame::draw(const std::string& tileset_id, DrawInterface&) {
  */
 
 void BoardGame::draw(std::function<void (const std::string& tileset, const std::string& tile, const tile_position& position)>& draw) {
-    for (auto& [_, layer_pair]: pImpl->board.get_layers()) {
+    for (auto& [_, layer_pair]: pImpl->board_.get_layers()) {
         auto& [tileset, layer] = layer_pair;
         for (auto& [tile_id, tile_position]: layer.get()) {
             draw(tileset, tile_id, tile_position);
