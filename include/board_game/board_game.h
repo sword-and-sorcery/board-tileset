@@ -3,6 +3,7 @@
 
 #include <string>
 #include <memory>
+#include <functional>
 
 #include "messages/board_status.pb.h"
 #include "board.h"
