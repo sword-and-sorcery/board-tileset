@@ -19,6 +19,7 @@ class UIBoardGame(ConanFile):
         self.requires("boost/1.69.0@conan/stable")
         self.requires("core-communications/0.0@sword/sorcery")
         self.requires("ui-tileset-glfw/0.0@sword/sorcery")
+        self.requires("zlib/1.2.11", override=True)
 
     def build(self):
         cmake = CMake(self)
